@@ -1,27 +1,34 @@
-import java.util.Scanner;
+import java.util.Arrays;
+import java.util.List;
 
-public class Bai2 {
-    public static void main(String[] args) {
-        String[] books = {"Dế Mèn Phiêu Lưu Ký", "Đắc Nhân Tâm", "Nhà Giả Kim", "Lược Sử Thời Gian", "Mắt Biếc"};
-        Scanner sc = new Scanner(System.in);
-        
-        System.out.print("Nhập tên sách cần tìm: ");
-        String search = sc.nextLine();
-        
-        int index = searchBooks(books, search);
-        if (index != -1) {
-            System.out.println("Tìm thấy tại vị trí: " + index);
-        } else {
-            System.out.println("Sách không tồn tại");
-        }
+class User2 {
+    private String username;
+    private String email;
+    public User2(String username, String email) {
+        this.username = username;
+        this.email = email;
     }
 
-    public static int searchBooks(String[] arr, String search) {
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i].equalsIgnoreCase(search)) { 
-                return i;
-            }
-        }
-        return -1;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
+public class Bai2 {
+    public static void main(String[] args) {
+        List<User2> users = Arrays.asList(
+                new User2("alice", "alice@gmail.com"),
+                new User2("bob", "bob@yahoo.com"),
+                new User2("charlie", "charlie@gmail.com")
+        );
+
+        users.stream()
+                .filter(u -> u.getEmail().endsWith("@gmail.com"))
+                .map(User2::getUsername)
+                .forEach(System.out::println);
+    }
+}
+
