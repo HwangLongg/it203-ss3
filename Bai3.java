@@ -1,32 +1,31 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+class User3 {
+    private String username;
+    public User3(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+}
+
 public class Bai3 {
     public static void main(String[] args) {
-        String[] names = {"Toán", "Văn", "Anh", "Lý", "Hóa"};
-        int[] quantities = {10, 5, 15, 15, 3};
+        List<User3> users = Arrays.asList(
+                new User3("alice"),
+                new User3("bob"),
+                new User3("charlie")
+        );
 
-        System.out.println("--- Thống kê ---");
-        maxQuantityOfBooks(names, quantities);
-        minQuantityOfBooks(names, quantities);
-    }
-
-    public static void maxQuantityOfBooks(String[] names, int[] quantities) {
-        int max = quantities[0];
-        for (int q : quantities) if (q > max) max = q;
-
-        System.out.print("Sách có số lượng nhiều nhất (" + max + "): ");
-        for (int i = 0; i < quantities.length; i++) {
-            if (quantities[i] == max) System.out.print(names[i] + " ");
-        }
-        System.out.println();
-    }
-
-    public static void minQuantityOfBooks(String[] names, int[] quantities) {
-        int min = quantities[0];
-        for (int q : quantities) if (q < min) min = q;
-
-        System.out.print("Sách có số lượng ít nhất (" + min + "): ");
-        for (int i = 0; i < quantities.length; i++) {
-            if (quantities[i] == min) System.out.print(names[i] + " ");
-        }
-        System.out.println();
+        Optional<User3> userOpt = users.stream()
+                .filter(u -> u.getUsername().equals("alice"))
+                .findFirst();
+        userOpt.ifPresentOrElse(u -> System.out.println("Welcome " + u.getUsername()),
+                () -> System.out.println("Guest login")
+        );
     }
 }
